@@ -25,5 +25,5 @@ log_header(){
 }
 
 log_default(){
-    echo -e "\033[0;37m -- $@ --\033[0m"
+    echo -e "\033[0;37m $@ \033[0m"
 }

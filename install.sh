@@ -7,10 +7,12 @@
 
 # Define based variable
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-DISTRO="$(awk -F'=' '/^NAME=/{print$2}' /etc/os-release)"
+
 
 # Import Functions
 source "$DIR/function/log-helpers"
+source "$DIR/function/add-repository"
+source "$DIR/function/utils"
 
 # Block run script with `sudo` privileges.
 if [ "$(whoami)" = "root" ]; then
@@ -19,14 +21,10 @@ if [ "$(whoami)" = "root" ]; then
 fi
 
 # Block run script on unmaintained distributive
-if [ "${DISTRO}" != "Fedora" ]; then
-  log_error "Sorry, this script was written for Fedora only"
-  exit 1
-fi
+detect_distibutive
 
 # Detect current running user home directory
-if [ -n "${SUDO_USER}" ]; then
-  HOMEDIR="$(eval echo ~"${SUDO_USER}")"
-else
-  HOMEDIR="${HOME}"
-fi
+detect_home
+
+# Detect architecture
+detect_architecture
