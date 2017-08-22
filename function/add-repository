@@ -1,1 +1,30 @@
 #!/usr/bin/env bash
+
+function EnableRpmFusionRepo() {
+    local RPMFFreeUrlDownload=http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+    local RPMFNonfreeUrlDownload=http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+    log_info "Installing RPM Fusion free and nonfree repos : "
+    sudo dnf -q -y install --nogpgcheck ${RPMFFreeUrlDownload} ${RPMFNonfreeUrlDownload} > /dev/null 2>&1
+    ExitStatusCheck ${?}
+}
+
+function EnableRussianFedoraRepo() {
+    local RFRFreeUrlDownload=http://mirror.yandex.ru/fedora/russianfedora/russianfedora/free/fedora/russianfedora-free-release-stable.noarch.rpm
+    local RFRFreeNonfreeUrlDownload=http://mirror.yandex.ru/fedora/russianfedora/russianfedora/nonfree/fedora/russianfedora-nonfree-release-stable.noarch.rpm
+
+    log_info "Installing Russian Fedora free and nonfree repos : "
+    sudo dnf -q -y install --nogpgcheck ${RFRFreeUrlDownload} ${RFRFreeNonfreeUrlDownload} > /dev/null 2>&1
+    ExitStatusCheck ${?}
+}
+
+function EnableGoogleChromeRepo() {
+    log_info "Installing Google Chrome repo : "
+    dnf config-manager --add-repo=google-chrome.repo > /dev/null 2>&1
+    ExitStatusCheck ${?}
+}
+
+#EnableRpmFusionRepo
+#EnableRussianFedoraRepo
+#EnableGoogleChromeRepo
+#EnableSkypeRepo

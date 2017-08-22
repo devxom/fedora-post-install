@@ -1,0 +1,93 @@
+#### System Tools ####
+# xorg-server xorg-server-utils xorg-xev
+i3lock
+xfce4-notifyd
+xsel
+zenity
+xdg-tools
+
+# develop tools
+vimpager
+time
+xclip
+wget
+htop
+tcpdump
+fping
+bc
+openssh
+tree
+ranger
+
+# The Z shell
+zsh
+
+# Unzip, unrar and 7-zip
+unzip
+unrar
+p7zip
+p7zip-plugins
+
+# vim
+vim-X11
+
+# Tmux
+tmux
+
+# pip
+python-pip
+
+# --------------------
+
+#### Desktop ####
+# Mail
+geary
+mutt
+offlineimap
+msmtp
+sqlite
+w3m
+
+# gnome-tweak-tool
+gnome-tweak-tool
+
+# Google Chrome
+google-chrome-stable
+google-chrome-unstable
+
+# ---------------
+
+#### Multimedia ####
+
+# MPV Media Player
+mpv
+
+# Multimedia plugins
+ffmpeg
+gstreamer1-plugins-base
+gstreamer1-plugins-base-tools
+gstreamer1-plugins-good
+gstreamer1-plugins-good-extras
+gstreamer1-plugins-bad-free
+gstreamer1-plugins-bad-free-extras
+gstreamer1-plugins-bad-freeworld
+gstreamer1-libav
+gstreamer1-plugins-ugly
+
+# ------------------
+#### Linux Container ####
+
+# Docker
+docker-io
+docker
+docker-compose
+docker-vim
+
+#------------------------
+
+#### Tools ####
+
+# Wireshark
+wireshark-gnome
+
+# -------------

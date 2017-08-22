@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# font setup for vim-airline
+function SetVimFont() {
+    mkdir -p ${HOMEDIR}/.local/share/fonts/
+    wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+    mv PowerlineSymbols.otf ${HOMEDIR}/.local/share/fonts/
+
+    mkdir -p ${HOMEDIR}/.config/fontconfig/conf.d/
+    wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+    mv 10-powerline-symbols.conf ${HOMEDIR}/.config/fontconfig/conf.d/
+
+    fc-cache -vf ${HOMEDIR}/.local/share/fonts/
+}

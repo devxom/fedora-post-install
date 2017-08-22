@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+UTILS="$dir/data/utilities.list"
+
+# Install preferred utilities using the list of packages 'data/utilities.list'
+function development {
+    log_info 'Installing preferred development applications...'
+    log_warning 'Requires root privileges'
+
+    # For loop for installing
+    for PACKAGE in $(cat $UTILS)
+    do
+        # Check if package is installed
+        PKGCHECK=$(dnf list installed | grep "$PACKAGE")
+        if [ "" == "$PKGCHECK" ]; then
+            log_info "Package '$PACKAGE' is not installed. Installing..."
+            # Install package
+            sudo dnf install -y $PACKAGE
+            log_success 'Done.'
+        else
+            log_success "Package '$PACKAGE' is installed."
+        fi
+    done
+    log_success 'Done.'
+}

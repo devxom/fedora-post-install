@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+function ExitStatusCheck(){
+    local Status=${1}
+    if [ "${Status}x" != "0x" ]; then
+        echo "task failed"
+    else
+        echo "task done"
+    fi
+}
+
 function detect_architecture() {
     case "$(uname -i)" in
       x86_64|amd64)
@@ -42,4 +51,29 @@ function detect_home() {
     fi
 
     log_default "Home dirrectory: ${HOME}"
+}
+
+function InstallPackages(){
+    local package
+
+    for package in $(egrep -v '^#|^$' packages.txt); do
+        log_info "Installing ${package} : "
+        sudo -E dnf -q -y install ${package} > /dev/null 2>&1
+        ExitStatusCheck ${?}
+    done
+}
+
+function update {
+	log_info 'Performing system update...'
+	sudo dnf distro-sync -y
+	# Done
+	log_success 'Done.'
+
+	# Check
+	EXITSTATUS=$1
+	if [[ $EXITSTATUS != 0 ]]; then
+		log_success "Finished. System is already up-to-date."
+	else
+		log_success "Finished. System update complete"
+	fi
 }

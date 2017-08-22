@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+function OhMyZshInstall() {
+    # zsh
+    sudo -E dnf install zsh
+    zsh_path=$(which zsh)
+    grep -Fxq "$zsh_path" /etc/shells || sudo bash -c "echo $zsh_path >> /etc/shells"
+    chsh -s "$zsh_path" $(whoami)
+
+    # Oh My Zsh
+    curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | zsh
+}

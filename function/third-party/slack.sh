@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+function slack {
+	# Variables
+	PACKAGE=slack
+	NAME="Slack"
+	show_header 'Begin '$NAME' installation'
+	# Check if already installed
+	echo 'Checking if '$NAME' is already installed...'
+	PKGCHECK=$(dnf list installed | grep "$PACKAGE")
+	if [ "" == "$PKGCHECK" ]; then
+		echo $NAME 'is not installed. Proceeding'
+		show_info 'Downloading '$NAME'...'
+		# Download RPM file that matches system architecture
+		case `uname -i` in
+			i386|i486|i586|i686)
+				whiptail --title  "No packages available to download that matches your system (32-bit)." --msgbox "Error." 8 78
+				../thirdparty
+				;;
+			x86_64)
+				curl -O https://downloads.slack-edge.com/linux_releases/slack-2.3.2-0.1.fc21.x86_64.rpm
+				;;
+			*)
+				whiptail --title "No remote packages available to download." --msgbox "Error." 8 78
+				../thirdparty
+				;;
+	    esac
+		# Install package(s)
+		show_info 'Installing '$NAME'...'
+		show_warning 'Requires root privileges'
+		sudo dnf --nogpgcheck install -y $PACKAGE*.rpm
+		# Cleanup and finish
+		rm $PACKAGE*.rpm
+		# Done
+		show_success 'Done.'
+		whiptail --title "Finished" --msgbox "Installation of $NAME complete." 8 78
+		../thirdparty
+	else
+		# Already installed
+		show_success $NAME 'already installed.'
+		whiptail --title "Finished" --msgbox "$NAME is already installed." 8 78
+		../thirdparty
+	fi
+}

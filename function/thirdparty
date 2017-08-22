@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source $DIR/third-party/gitkraken.sh
+#source $DIR/functions/third-party/google-chrome
+source $DIR/third-party/skype.sh
+#source $DIR/functions/third-party/oracle-java
+#source $DIR/functions/third-party/rvm
+#source $DIR/functions/third-party/sublime-text
+source $DIR/third-party/slack.sh
+
+# Install Third-Party Applications
+function thirdparty {
+	THIRDPARTY=$(whiptail \
+		--notags \
+		--title "Third-Party Installation" \
+		--menu "\nWhat third-party software would you like to install?" \
+		--ok-button "Install" \
+		--cancel-button "Go Back" \
+		32 80 24 \
+		'gitkraken'			'Gitkraken' \
+		'installSkypeRepo'	'Skype' \
+		'slack'	            'Slack' \
+		3>&1 1>&2 2>&3)
+
+	exitstatus=$?
+	if [ $exitstatus = 0 ]; then
+		echo $THIRDPARTY
+	else
+		echo "oups"
+	fi
+}
